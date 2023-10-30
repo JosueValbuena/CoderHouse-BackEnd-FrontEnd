@@ -12,7 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Close, ShoppingCart } from '@mui/icons-material';
-import { Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { openSideBar } from '../redux/utilsSlice';
 import { Link } from 'react-router-dom';
@@ -67,16 +67,11 @@ export default function NavBar() {
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
-        isOpenSideBar && dispatch(openSideBar(!isOpenSideBar));
     };
 
     const handleSidebarOpen = () => {
         /* setOpenSidebarIcon(!openSideBarIcon); */
         dispatch(openSideBar(!isOpenSideBar));
-    }
-
-    const handleSidebar = () => {
-        isOpenSideBar && dispatch(openSideBar(!isOpenSideBar));
     }
 
     const handleMenuClose = () => {
@@ -100,12 +95,21 @@ export default function NavBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <Link to='/login'>
+            <Button
+                color='inherit'
+                component={Link}
+                to='login'
+                xs={{ display: 'block' }}>
                 <MenuItem onClick={handleMenuClose}>Inicia Sesion</MenuItem>
-            </Link>
-            <Link to='/createacount'>
-                <MenuItem onClick={handleMenuClose}>Crea una Cuenta</MenuItem>
-            </Link>
+            </Button>
+
+            <Button
+                color='inherit'
+                component={Link}
+                to='createacount'
+                xs={{ display: 'block' }}>
+                <MenuItem onClick={handleMenuClose}>Crea Una Cuenta</MenuItem>
+            </Button>
         </Menu>
     );
 
@@ -120,7 +124,13 @@ export default function NavBar() {
                                 noWrap
                                 component="div"
                             >
-                                <Link to='/' onClick={handleSidebar}>CoderHouse Store</Link>
+                                <Button
+                                    color='inherit'
+                                    component={Link}
+                                    to='/'
+                                >
+                                    CoderHouse Store
+                                </Button>
                             </Typography>
                         </Grid>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Person } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 const SideBar = () => {
     const isOpenSideBar = useSelector((state) => state.sidebar.open);
     const dispatch = useDispatch();
+    const ref = useRef(isOpenSideBar);
 
     const sideBarVisible = {
         visibleStyle: {
@@ -28,6 +29,20 @@ const SideBar = () => {
         }
     };
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (ref.current || !ref.current.contains(event.target)) {
+                isOpenSideBar && dispatch(openSideBar(!isOpenSideBar));
+                console.log('click fuera del componente')
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [ref]);
+
     const handleSidebar = () => {
         isOpenSideBar && dispatch(openSideBar(!isOpenSideBar));
     }
@@ -47,7 +62,7 @@ const SideBar = () => {
                 py={2}
                 my={1} >
                 <Link to='/login'>
-                    <Button onClick={handleSidebar} variant="outlined" startIcon={<Person />}>
+                    <Button variant="outlined" startIcon={<Person />}>
                         Inicia Sesion
                     </Button>
                 </Link>
