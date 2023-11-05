@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const SideBar = () => {
     const isOpenSideBar = useSelector((state) => state.sidebar.open);
     const dispatch = useDispatch();
-    const ref = useRef(isOpenSideBar);
+    const ref = useRef();
 
     const sideBarVisible = {
         visibleStyle: {
@@ -30,21 +30,24 @@ const SideBar = () => {
     };
 
     useEffect(() => {
-        function handleClickOutside(event) {
-            if (ref.current || !ref.current.contains(event.target)) {
-                isOpenSideBar && dispatch(openSideBar(!isOpenSideBar));
+        /* function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                dispatch(openSideBar(false));
                 console.log('click fuera del componente')
             }
-        }
+        } */
 
-        document.addEventListener('mousedown', handleClickOutside);
+        /* if(isOpenSideBar){
+            document.addEventListener('mousedown', handleSidebar);
+        }
+        
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [ref]);
+            document.removeEventListener('mousedown', handleSidebar);
+        }; */
+    }, [isOpenSideBar, dispatch]);
 
     const handleSidebar = () => {
-        isOpenSideBar && dispatch(openSideBar(!isOpenSideBar));
+        dispatch(openSideBar(!isOpenSideBar));
     }
 
     return (

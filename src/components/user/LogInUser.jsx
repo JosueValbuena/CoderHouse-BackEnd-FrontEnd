@@ -1,33 +1,62 @@
-import { AccountCircle, Google, Key } from '@mui/icons-material'
-import { Box, Button, TextField, Typography } from '@mui/material'
 import React from 'react'
+import { useForm } from 'react-hook-form';
+import { Google } from '@mui/icons-material'
+import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 
 const LogInUser = () => {
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = data => console.log(data);
+    console.log(errors);
+
     return (
-        <Box>
-            <Box sx={{ backgroundColor: '#eee' }} p={2}>
-                <Typography>
-                    Nos alegra tenerte de vuelta!
-                </Typography>
+        <Box sx={{
+            minHeight: 'calc(100vh - 5.5rem)',
+            backgroundColor: '#eee',
+            display: 'flex',
+            justifyContent: 'center'
+        }}>
+            <Paper sx={{ height: '25rem', marginTop: '1rem' }} elevation={3}>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#fff',
+                }} p={4}
+                >
+                    <Typography>
+                        Nos alegra tenerte de vuelta
+                    </Typography>
 
-                <Box sx={{ display: 'flex', alignItems: 'flex-end', backgroundColor: '#fafafa' }} py={2}>
-                    <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                    <TextField id="input-with-sx" label="Ingresa tu Correo" variant="standard" required />
-                </Box>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Box sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }} p={2}
+                        >
+                            <TextField type="text" placeholder="Ingresa tu correo" {...register("Ingresa tu correo", { required: true })} />
+                            <TextField type="password" placeholder="Contrasenha" {...register("Contrasenha", { required: true })} />
 
-                <Box sx={{ display: 'flex', alignItems: 'flex-end', backgroundColor: '#fafafa' }} py={2}>
-                    <Key sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                    <TextField id="input-with-sx" label="Ingresa tu Clave" type='password' variant="standard" required />
+                            <Box pt={2}>
+                                <Button variant="contained" type='submit'>Iniciar Session</Button>
+                            </Box>
+                        </Box>
+
+                    </form>
+
+                    <Typography>
+                        Olvidaste tu contrasenha?
+                    </Typography>
+
+                    <Typography>
+                        O inicia sesion con:
+                    </Typography>
+                    <Button variant="contained" color='success' startIcon={<Google />}>Google</Button>
                 </Box>
-                <Typography>
-                    Olvidaste tu contrasenha?
-                </Typography>
-                <Button variant="contained">Iniciar Session</Button>
-                <Typography>
-                    O inicia sesion con:
-                </Typography>
-                <Button variant="contained" color='success' startIcon={<Google />}>Google</Button>
-            </Box>
+            </Paper>
         </Box>
     )
 }
