@@ -4,9 +4,11 @@ import { Box, Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { openSideBar } from '../redux/utilsSlice';
 import { Link } from 'react-router-dom';
+import UserProfile from './user/UserProfile';
 
 const SideBar = () => {
     const isOpenSideBar = useSelector((state) => state.sidebar.open);
+    const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const ref = useRef();
 
@@ -64,11 +66,19 @@ const SideBar = () => {
             }}
                 py={2}
                 my={1} >
-                <Link to='/login'>
-                    <Button variant="outlined" startIcon={<Person />}>
-                        Inicia Sesion
-                    </Button>
-                </Link>
+                {user ?
+                    <Link to='/user'>
+                        <Button variant="outlined" startIcon={<Person />}>
+                            Perfil
+                        </Button>
+                    </Link>
+                    :
+                    <Link to='/login'>
+                        <Button variant="outlined" startIcon={<Person />}>
+                            Inicia Sesion
+                        </Button>
+                    </Link>
+                }
             </Box>
 
             <Typography>

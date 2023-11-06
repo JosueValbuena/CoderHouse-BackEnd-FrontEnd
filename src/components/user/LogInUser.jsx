@@ -2,12 +2,22 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { Google } from '@mui/icons-material'
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../redux/userSlice';
 
 const LogInUser = () => {
 
+    const user = useSelector((state) => state.user.user)
+    const dispatch = useDispatch();
+    console.log(user)
+
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
-    console.log(errors);
+    const onSubmit = (data) => {
+        dispatch(setUser(data))
+    }
+
+    
+    
 
     return (
         <Box sx={{
@@ -37,8 +47,8 @@ const LogInUser = () => {
                             justifyContent: 'center'
                         }} p={2}
                         >
-                            <TextField type="text" placeholder="Ingresa tu correo" {...register("Ingresa tu correo", { required: true })} />
-                            <TextField type="password" placeholder="Contrasenha" {...register("Contrasenha", { required: true })} />
+                            <TextField type="text" placeholder="Ingresa tu correo" {...register("user", { required: true })} />
+                            <TextField type="password" placeholder="Contrasenha" {...register("password", { required: true })} />
 
                             <Box pt={2}>
                                 <Button variant="contained" type='submit'>Iniciar Session</Button>
