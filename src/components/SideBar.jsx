@@ -67,11 +67,13 @@ const SideBar = () => {
                 py={2}
                 my={1} >
                 {user ?
-                    <Link to='/user'>
-                        <Button variant="outlined" startIcon={<Person />}>
-                            Perfil
-                        </Button>
-                    </Link>
+                    <Box>
+                        <Link to='/user'>
+                            <Button variant="outlined" startIcon={<Person />}>
+                                Perfil
+                            </Button>
+                        </Link>
+                    </Box>
                     :
                     <Link to='/login'>
                         <Button variant="outlined" startIcon={<Person />}>

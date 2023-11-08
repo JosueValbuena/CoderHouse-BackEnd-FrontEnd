@@ -61,6 +61,7 @@ export default function NavBar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     /* const [openSideBarIcon, setOpenSidebarIcon] = React.useState(false); */
     const isOpenSideBar = useSelector((state) => state.sidebar.open);
+    const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
 
     const isMenuOpen = Boolean(anchorEl);
@@ -95,21 +96,43 @@ export default function NavBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <Button
-                color='inherit'
-                component={Link}
-                to='login'
-                xs={{ display: 'block' }}>
-                <MenuItem onClick={handleMenuClose}>Inicia Sesion</MenuItem>
-            </Button>
+            {user ?
+                <Box>
+                    <Button
+                        color='inherit'
+                        component={Link}
+                        to='user'
+                        xs={{ display: 'block' }}>
+                        <MenuItem onClick={handleMenuClose}>Hola {user}</MenuItem>
+                    </Button>
 
-            <Button
-                color='inherit'
-                component={Link}
-                to='createacount'
-                xs={{ display: 'block' }}>
-                <MenuItem onClick={handleMenuClose}>Crea Una Cuenta</MenuItem>
-            </Button>
+                    <Button
+                        color='inherit'
+                        component={Link}
+                        to='login'
+                        xs={{ display: 'block' }}>
+                        <MenuItem onClick={handleMenuClose}>Cerrar Sesion</MenuItem>
+                    </Button>
+                </Box>
+                :
+                <Box>
+                    <Button
+                        color='inherit'
+                        component={Link}
+                        to='login'
+                        xs={{ display: 'block' }}>
+                        <MenuItem onClick={handleMenuClose}>Inicia Sesion</MenuItem>
+                    </Button>
+
+                    <Button
+                        color='inherit'
+                        component={Link}
+                        to='createacount'
+                        xs={{ display: 'block' }}>
+                        <MenuItem onClick={handleMenuClose}>Crea Una Cuenta</MenuItem>
+                    </Button>
+                </Box>
+            }
         </Menu>
     );
 
