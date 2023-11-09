@@ -4,7 +4,7 @@ import { Google } from '@mui/icons-material'
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../redux/userSlice';
-import { Redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 
 const LogInUser = () => {
@@ -13,7 +13,7 @@ const LogInUser = () => {
     const user = useSelector((state) => state.user.user)
     const dispatch = useDispatch();
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, /* formState: { errors } */ } = useForm();
     
     const onSubmit = async (data) => {
 
@@ -82,7 +82,7 @@ const LogInUser = () => {
                     </form>
 
                     <Typography>
-                        Olvidaste tu contrasenha?
+                        ¿Olvidaste tu contraseña?
                     </Typography>
 
                     <Typography>

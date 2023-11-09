@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Person } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { openSideBar } from '../redux/utilsSlice';
 import { Link } from 'react-router-dom';
-import UserProfile from './user/UserProfile';
 
 const SideBar = () => {
     const isOpenSideBar = useSelector((state) => state.sidebar.open);
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const ref = useRef();
+    const refSideBar = useRef(isOpenSideBar);
 
     const sideBarVisible = {
         visibleStyle: {
@@ -31,29 +31,28 @@ const SideBar = () => {
         }
     };
 
-    useEffect(() => {
-        /* function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target)) {
-                dispatch(openSideBar(false));
-                console.log('click fuera del componente')
-            }
-        } */
-
-        /* if(isOpenSideBar){
-            document.addEventListener('mousedown', handleSidebar);
-        }
-        
-        return () => {
-            document.removeEventListener('mousedown', handleSidebar);
-        }; */
+    const handleSidebar = useCallback (() => {
+        refSideBar.current = isOpenSideBar;
+        dispatch(openSideBar(!isOpenSideBar));
     }, [isOpenSideBar, dispatch]);
 
-    const handleSidebar = () => {
-        dispatch(openSideBar(!isOpenSideBar));
-    }
+    useEffect(() => {
+
+        function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target) && isOpenSideBar) {
+                handleSidebar();
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isOpenSideBar, handleSidebar]);
 
     return (
-        <Box sx={isOpenSideBar ? sideBarVisible.visibleStyle : sideBarVisible.nonVisibleStyle} p={2}>
+        <Box ref={ref} sx={isOpenSideBar ? sideBarVisible.visibleStyle : sideBarVisible.nonVisibleStyle} p={2}>
             <Typography>
                 Perfil
             </Typography>
@@ -76,7 +75,7 @@ const SideBar = () => {
                     </Box>
                     :
                     <Link to='/login'>
-                        <Button variant="outlined" startIcon={<Person />}>
+                        <Button variant="outlined" startIcon={<Person />} onClick={handleSidebar}>
                             Inicia Sesion
                         </Button>
                     </Link>

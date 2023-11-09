@@ -1,5 +1,5 @@
 import { AccountCircle, Edit } from '@mui/icons-material'
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 
 const UserProfile = () => {
