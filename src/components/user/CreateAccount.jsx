@@ -41,8 +41,8 @@ const CreateAccount = () => {
               <TextField type="password" placeholder="Apellidos" {...register("Apellidos", { required: true })} />
               <TextField type="email" placeholder="Correo" {...register("Correo", { required: true })} />
               <TextField type="datetime" placeholder="Edad" {...register("Edad", { required: true })} />
-              <TextField type="password" placeholder="Contrasenha" {...register("Contrasenha", { required: true })} />
-              <TextField type="password" placeholder="Repita Contrasenha" {...register("Repita Contrasenha", { required: true })} />
+              <TextField type="password" placeholder="Contraseña" {...register("Contraseña", { required: true })} />
+              <TextField type="password" placeholder="Repita Contraseña" {...register("Repita Contraseña", { required: true })} />
 
               <Box pt={2}>
                 <Button variant="contained" type='submit'>Crear Cuenta</Button>

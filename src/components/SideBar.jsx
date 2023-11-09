@@ -28,6 +28,10 @@ const SideBar = () => {
             zIndex: '-1000',
             left: '-100%',
             transition: '0.3s'
+        },
+        mdStyle: {
+            left: '50%',
+            backgroundColor: '#000',
         }
     };
 
@@ -52,7 +56,7 @@ const SideBar = () => {
     }, [isOpenSideBar, handleSidebar]);
 
     return (
-        <Box ref={ref} sx={isOpenSideBar ? sideBarVisible.visibleStyle : sideBarVisible.nonVisibleStyle} p={2}>
+        <Box ref={ref} sx={isOpenSideBar ? sideBarVisible.visibleStyle : sideBarVisible.nonVisibleStyle} md={sideBarVisible.mdStyle} p={2}>
             <Typography>
                 Perfil
             </Typography>
