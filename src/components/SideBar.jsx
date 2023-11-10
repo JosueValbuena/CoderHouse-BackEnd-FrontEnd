@@ -10,7 +10,7 @@ const SideBar = () => {
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const ref = useRef();
-    const refSideBar = useRef(isOpenSideBar);
+    //const refSideBar = useRef(isOpenSideBar);
 
     const sideBarVisible = {
         visibleStyle: {
@@ -36,7 +36,7 @@ const SideBar = () => {
     };
 
     const handleSidebar = useCallback (() => {
-        refSideBar.current = isOpenSideBar;
+        //refSideBar.current = isOpenSideBar;
         dispatch(openSideBar(!isOpenSideBar));
     }, [isOpenSideBar, dispatch]);
 
