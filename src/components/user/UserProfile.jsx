@@ -7,31 +7,34 @@ const UserProfile = () => {
 
   const [userData, setUserData] = useState({});
 
-  const token = localStorage.getItem('token');
-
-  const getData = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/api/users/profile', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (!response.ok) return toast.error('Error al obtener perfil del usuario :/');
-
-      const dataRes = await response.json();
-
-      setUserData(dataRes.user);
-    } catch (error) {
-      console.error('Error en la solicitud', error.message);
-    }
-  };
-
   useEffect(() => {
-    getData()
-  }, [])
+
+    const token = localStorage.getItem('token');
+
+    const getData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/users/profile', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+  
+        if (!response.ok) return toast.error('Error al obtener perfil del usuario :/');
+  
+        const dataRes = await response.json();
+  
+        setUserData(dataRes.user);
+      } catch (error) {
+        console.error('Error en la solicitud', error.message);
+      }
+    };
+
+    return () => {
+      getData()
+    }
+  }, []);
 
   return (
     <Box sx={{
