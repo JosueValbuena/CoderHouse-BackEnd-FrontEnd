@@ -14,7 +14,7 @@ const LogInUser = () => {
     const dispatch = useDispatch();
 
     const { register, handleSubmit, /* formState: { errors } */ } = useForm();
-    
+
     const onSubmit = async (data) => {
 
         const logData = {
@@ -23,7 +23,7 @@ const LogInUser = () => {
         };
 
         try {
-            const res = await fetch('http://localhost:3001/api/users/login', {
+            const response = await fetch('http://localhost:3001/api/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -31,10 +31,11 @@ const LogInUser = () => {
                 body: JSON.stringify(logData)
             });
 
-            if (!res.ok) return toast.error("Usuario o contrasenha invalida :/")
+            if (!response.ok) return toast.error("Usuario o contrasenha invalida :/")
 
-            const dataRes = await res.json();
+            const dataRes = await response.json();
             dispatch(setUser(dataRes.name));
+            localStorage.setItem('token', dataRes.token);
             toast.success(`Bienvenido ${user}`)
             navigate('/');
         } catch (error) {

@@ -1,8 +1,38 @@
 import { AccountCircle, Edit } from '@mui/icons-material'
 import { Box, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 
 const UserProfile = () => {
+
+  const [userData, setUserData] = useState({});
+
+  const token = localStorage.getItem('token');
+
+  const getData = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/users/profile', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) return toast.error('Error al obtener perfil del usuario :/');
+
+      const dataRes = await response.json();
+
+      setUserData(dataRes.user);
+    } catch (error) {
+      console.error('Error en la solicitud', error.message);
+    }
+  };
+
+  useEffect(() => {
+    getData()
+  }, [])
+
   return (
     <Box sx={{
       backgroundColor: '#eee',
@@ -21,7 +51,7 @@ const UserProfile = () => {
       }} my={2} p={1}>
         <Box>
           <Typography variant='h5'>Hola</Typography>
-          <Typography variant='h4'>NOMBRE</Typography>
+          <Typography variant='h4'>{userData.first_name}</Typography>
         </Box>
         <AccountCircle sx={{ fontSize: '4rem' }} />
       </Box>
@@ -33,23 +63,23 @@ const UserProfile = () => {
         </Box>
 
         <Box>
-          <Typography>Nombre:</Typography>
-          <Typography>NOMBRE USUARIO</Typography>
+          <Typography>Nombre(s):</Typography>
+          <Typography>{userData.first_name} {userData.middle_name && userData.middle_name}</Typography>
         </Box>
 
         <Box>
-          <Typography>Apellidos:</Typography>
-          <Typography>Apellidos Usuario</Typography>
+          <Typography>Apellido(s):</Typography>
+          <Typography>{userData.last_name && userData.last_name} {userData.second_last_name && userData.second_last_name}</Typography>
         </Box>
 
         <Box>
           <Typography>Email</Typography>
-          <Typography>EMAIL USUARIO</Typography>
+          <Typography>{userData.email}</Typography>
         </Box>
 
         <Box>
           <Typography>Edad</Typography>
-          <Typography>EDAD USUARIO</Typography>
+          <Typography>{userData.age && userData.age}</Typography>
         </Box>
       </Box>
 
