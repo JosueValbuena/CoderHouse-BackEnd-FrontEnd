@@ -4,6 +4,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { openSideBar } from '../redux/utilsSlice';
 import { Link } from 'react-router-dom';
+import {styled} from '@mui/material/styles';
 
 const SideBar = () => {
     const isOpenSideBar = useSelector((state) => state.sidebar.open);
@@ -12,30 +13,23 @@ const SideBar = () => {
     const ref = useRef();
     //const refSideBar = useRef(isOpenSideBar);
 
-    const sideBarVisible = {
-        visibleStyle: {
-            position: 'absolute',
-            zIndex: '2000',
-            top: '5.4rem',
-            left: '0',
-            transition: '0.3s',
-            backgroundColor: '#eee',
-            width: '100%'
-
-        },
-        nonVisibleStyle: {
-            position: 'absolute',
-            zIndex: '-1000',
-            left: '-100%',
-            transition: '0.3s'
-        },
-        mdStyle: {
-            left: '50%',
-            backgroundColor: '#000',
+    const SideBar = styled('div')(({ theme }) => ({
+        position: 'absolute',
+        zIndex: isOpenSideBar ? '2000' : '-1000',
+        top: '5.4rem',
+        left: isOpenSideBar ? '0' : '-100%',
+        transition: '0.3s',
+        backgroundColor: '#eee',
+        width: '100%',
+        padding: '1rem 2rem',
+        [theme.breakpoints.up('md')]: {
+            left: isOpenSideBar ? '0' : '0',
+            top: '5.5rem',
+            width: '50%'
         }
-    };
+    }));
 
-    const handleSidebar = useCallback (() => {
+    const handleSidebar = useCallback(() => {
         //refSideBar.current = isOpenSideBar;
         dispatch(openSideBar(!isOpenSideBar));
     }, [isOpenSideBar, dispatch]);
@@ -56,7 +50,7 @@ const SideBar = () => {
     }, [isOpenSideBar, handleSidebar]);
 
     return (
-        <Box ref={ref} sx={isOpenSideBar ? sideBarVisible.visibleStyle : sideBarVisible.nonVisibleStyle} md={sideBarVisible.mdStyle} p={2}>
+        <SideBar ref={ref}>
             <Typography>
                 Perfil
             </Typography>
@@ -103,7 +97,7 @@ const SideBar = () => {
                 <Button variant="text" onClick={handleSidebar}>Categoria 3</Button>
                 <Button variant="text" onClick={handleSidebar}>Categoria 4</Button>
             </Box>
-        </Box>
+        </SideBar>
     )
 }
 
