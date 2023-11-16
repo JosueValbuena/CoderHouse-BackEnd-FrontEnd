@@ -13,14 +13,6 @@ const SideBar = () => {
     const ref = useRef();
     //const refSideBar = useRef(isOpenSideBar);
 
-    const theme = createTheme({
-        breakpoints: {
-            values: {
-                laptop: 1023
-            }
-        }
-    });
-
     const SideBar = styled('div')(({ theme }) => ({
         position: 'absolute',
         top: '5.4rem',
@@ -33,7 +25,8 @@ const SideBar = () => {
             left: '0',
             zIndex: '1000',
             top: '5.5rem',
-            width: '35%'
+            width: '35%',
+            position: 'absolute'
         },
         [theme.breakpoints.up('md')]: {
             top: '5.5rem',
