@@ -44,11 +44,12 @@ const LogInUser = () => {
     };
 
     return (
-        <Box sx={{
+        <Box item sx={{
             minHeight: 'calc(100vh - 5.5rem)',
             backgroundColor: '#eee',
             display: 'flex',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            marginInline: 'auto'
         }}>
             <Toaster />
             <Paper sx={{ height: '25rem', marginTop: '1rem' }} elevation={3}>

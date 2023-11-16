@@ -137,7 +137,7 @@ export default function NavBar() {
     );
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, marginBottom: '1rem' }}>
             <AppBar position="static">
                 <Toolbar>
                     <Grid container sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
