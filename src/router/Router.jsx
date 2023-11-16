@@ -13,9 +13,9 @@ const Router = () => {
     const user = useSelector((state) => state.user.user);
 
     return (
-        <Box>
+        <Box sx={{width: '75%', display: 'flex', justifyContent: 'center'}}>
             <Container>
-                <Grid container>
+                <Grid container justifyContent='center'>
                     <Routes>
                         <Route path='/' element={<Home />} />;
                         <Route path='/createacount' element={<CreateAccount />} />

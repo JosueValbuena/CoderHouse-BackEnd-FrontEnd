@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { Google } from '@mui/icons-material'
-import { Box, Button, Divider, Paper, TextField, Typography } from '@mui/material'
+import { Box, Button, Divider, Grid, Paper, TextField, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
@@ -44,56 +44,55 @@ const LogInUser = () => {
     };
 
     return (
-        <Box item sx={{
-            minHeight: 'calc(100vh - 5.5rem)',
-            backgroundColor: '#eee',
-            display: 'flex',
-            justifyContent: 'center',
-            marginInline: 'auto'
-        }}>
-            <Toaster />
-            <Paper sx={{ height: '25rem', marginTop: '1rem' }} elevation={3}>
-                <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: '#fff',
-                }} p={4}
-                >
-                    <Typography>
-                        Nos alegra tenerte de vuelta
-                    </Typography>
+        <Grid item>
+            <Box sx={{
+                minHeight: 'calc(100vh - 5.5rem)',
+                backgroundColor: '#eee'
+            }}>
+                <Toaster />
+                <Paper sx={{ height: '25rem', marginTop: '1rem' }} elevation={3}>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: '#fff',
+                    }} p={4}
+                    >
+                        <Typography>
+                            Nos alegra tenerte de vuelta
+                        </Typography>
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <Box sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }} p={2}
-                        >
-                            <TextField type="text" placeholder="Ingresa tu correo" {...register("user", { required: true })} />
-                            <TextField type="password" placeholder="Contrasenha" {...register("password", { required: true })} />
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <Box sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }} p={2}
+                            >
+                                <TextField type="text" placeholder="Ingresa tu correo" {...register("user", { required: true })} />
+                                <TextField type="password" placeholder="Contrasenha" {...register("password", { required: true })} />
 
-                            <Box pt={2}>
-                                <Button variant="contained" type='submit'>Iniciar Session</Button>
+                                <Box pt={2}>
+                                    <Button variant="contained" type='submit'>Iniciar Session</Button>
+                                </Box>
                             </Box>
-                        </Box>
 
-                    </form>
+                        </form>
 
-                    <Typography>
-                        ¿Olvidaste tu contraseña?
-                    </Typography>
-                    <Divider />
-                    <Typography>
-                        O inicia sesion con:
-                    </Typography>
-                    <Button variant="contained" color='success' startIcon={<Google />}>Google</Button>
-                </Box>
-            </Paper>
-        </Box>
+                        <Typography>
+                            ¿Olvidaste tu contraseña?
+                        </Typography>
+                        <Divider />
+                        <Typography>
+                            O inicia sesion con:
+                        </Typography>
+                        <Button variant="contained" color='success' startIcon={<Google />}>Google</Button>
+                    </Box>
+                </Paper>
+            </Box>
+        </Grid>
     )
 }
 
