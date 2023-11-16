@@ -16,6 +16,7 @@ const SideBar = () => {
     const SideBar = styled('div')(({ theme }) => ({
         position: 'absolute',
         top: '5.4rem',
+        zIndex: '1000',
         left: isOpenSideBar ? '0' : '-100%',
         transition: '0.5s',
         backgroundColor: '#eee',
@@ -24,17 +25,14 @@ const SideBar = () => {
         [theme.breakpoints.up('sm')]: {
             left: '0',
             zIndex: '1000',
-            top: '5.5rem',
-            width: '35%',
-            position: 'absolute'
+            width: '30%',
+            position: 'static'
         },
         [theme.breakpoints.up('md')]: {
-            top: '5.5rem',
             width: '25%'
         },
         [theme.breakpoints.up('lg')]: {
-            top: '4rem',
-            width: '25%'
+            width: '20%'
         }
     }));
 

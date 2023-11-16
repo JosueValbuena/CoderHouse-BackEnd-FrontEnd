@@ -1,3 +1,4 @@
+import { Box, Container, Grid } from '@mui/material';
 import './App.css';
 import NavBar from './components/NavBar'
 import SideBar from './components/SideBar';
@@ -7,8 +8,12 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <SideBar />
-      <Router />
+      <Container>
+        <Grid container >
+          <SideBar />
+          <Router />
+        </Grid>
+      </Container>
     </div>
   );
 }

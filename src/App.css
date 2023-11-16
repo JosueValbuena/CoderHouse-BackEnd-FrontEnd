@@ -4,6 +4,11 @@
   box-sizing: border-box;
 };
 
+html{
+  background-color: #eee;
+}
+
 .App{
   position: relative;
+  background-color: #eee;
 };
