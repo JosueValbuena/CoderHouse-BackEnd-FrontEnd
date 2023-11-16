@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { Google } from '@mui/icons-material'
-import { Box, Button, Paper, TextField, Typography } from '@mui/material'
+import { Box, Button, Divider, Paper, TextField, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
@@ -85,7 +85,7 @@ const LogInUser = () => {
                     <Typography>
                         ¿Olvidaste tu contraseña?
                     </Typography>
-
+                    <Divider />
                     <Typography>
                         O inicia sesion con:
                     </Typography>
