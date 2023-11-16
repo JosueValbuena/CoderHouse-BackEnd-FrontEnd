@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import './App.css';
 import NavBar from './components/NavBar'
 import SideBar from './components/SideBar';
