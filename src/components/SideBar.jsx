@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { Person } from '@mui/icons-material';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, createTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { openSideBar } from '../redux/utilsSlice';
 import { Link } from 'react-router-dom';
-import {styled} from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 
 const SideBar = () => {
     const isOpenSideBar = useSelector((state) => state.sidebar.open);
@@ -13,19 +13,35 @@ const SideBar = () => {
     const ref = useRef();
     //const refSideBar = useRef(isOpenSideBar);
 
+    const theme = createTheme({
+        breakpoints: {
+            values: {
+                laptop: 1023
+            }
+        }
+    });
+
     const SideBar = styled('div')(({ theme }) => ({
         position: 'absolute',
-        zIndex: isOpenSideBar ? '2000' : '-1000',
         top: '5.4rem',
         left: isOpenSideBar ? '0' : '-100%',
-        transition: '0.3s',
+        transition: '0.5s',
         backgroundColor: '#eee',
         width: '100%',
         padding: '1rem 2rem',
-        [theme.breakpoints.up('md')]: {
-            left: isOpenSideBar ? '0' : '0',
+        [theme.breakpoints.up('sm')]: {
+            left: '0',
+            zIndex: '1000',
             top: '5.5rem',
-            width: '50%'
+            width: '35%'
+        },
+        [theme.breakpoints.up('md')]: {
+            top: '5.5rem',
+            width: '25%'
+        },
+        [theme.breakpoints.up('lg')]: {
+            top: '4rem',
+            width: '25%'
         }
     }));
 
