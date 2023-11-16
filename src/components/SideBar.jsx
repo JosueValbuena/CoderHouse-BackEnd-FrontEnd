@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { Person } from '@mui/icons-material';
-import { Box, Button, Typography, createTheme } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { openSideBar } from '../redux/utilsSlice';
 import { Link } from 'react-router-dom';
