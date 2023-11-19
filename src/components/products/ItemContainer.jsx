@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, CardActions, CardContent, CardMedia, Grid, Paper, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import ItemCard from './ItemCard';
 
 const ItemContainer = () => {

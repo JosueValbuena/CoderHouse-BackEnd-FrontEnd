@@ -1,10 +1,19 @@
 import { Favorite, ShoppingCart } from '@mui/icons-material'
 import { Button, CardActions, CardContent, CardMedia, Grid, Paper, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const ItemCard = ({ product }) => {
 
     const [favorite, setFavorite] = useState(false);
+
+    useEffect(() => {
+      /* first */
+    
+      return () => {
+        setFavorite(false)
+      }
+    }, [])
+    
 
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
