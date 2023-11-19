@@ -13,7 +13,7 @@ const Router = () => {
     const user = useSelector((state) => state.user.user);
 
     return (
-        <Box sx={{width: '75%', display: 'flex', justifyContent: 'center'}}>
+        <Box sx={{ width: { xs: '100%', sm: '70%', md: '75%', lg: '80%' }, display: 'flex', justifyContent: 'center' }}>
             <Container>
                 <Grid container justifyContent='center'>
                     <Routes>

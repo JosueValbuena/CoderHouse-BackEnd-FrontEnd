@@ -180,7 +180,7 @@ export default function NavBar() {
                                     color="inherit"
                                     aria-label="open drawer"
                                     onClick={handleSidebarOpen}
-                                    sx={{ display: { md: 'none' } }}
+                                    sx={{ display: { sm: 'none' } }}
                                 >
                                     {isOpenSideBar ? <Close /> : <MenuIcon />}
                                 </IconButton>
