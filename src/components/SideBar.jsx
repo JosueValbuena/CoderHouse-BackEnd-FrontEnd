@@ -26,7 +26,8 @@ const SideBar = () => {
             left: '0',
             zIndex: '1000',
             width: '30%',
-            position: 'static'
+            position: 'static',
+            backgroundColor: '#eee'
         },
         [theme.breakpoints.up('md')]: {
             width: '25%'

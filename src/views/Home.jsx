@@ -1,12 +1,11 @@
 import { Box } from '@mui/material'
 import React from 'react'
+import ItemContainer from '../components/products/ItemContainer'
 
 const Home = () => {
     return (
         <Box>
-            <div style={{ backgroundColor: '#eeeeee', height: '80vh' }}>
-                Home
-            </div>
+            <ItemContainer />
         </Box>
     )
 }
