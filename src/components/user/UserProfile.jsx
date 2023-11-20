@@ -13,7 +13,7 @@ const UserProfile = () => {
 
     const getData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/users/profile', {
+        const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/users/profile', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
