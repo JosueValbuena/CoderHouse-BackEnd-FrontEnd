@@ -9,7 +9,7 @@ const ItemContainer = () => {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/products/all', {
+                const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/products/all', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ const ItemContainer = () => {
         <Grid container spacing={2}>
             {products.map(ele => {
                 return <ItemCard key={ele._id} product={ele} />
-            })};
+            })}
         </Grid>
     )
 }
