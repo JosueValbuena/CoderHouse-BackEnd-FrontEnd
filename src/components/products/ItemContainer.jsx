@@ -19,7 +19,6 @@ const ItemContainer = () => {
             if (!response.ok) throw new Error('Error consultando productos');
 
             const data = await response.json();
-            console.log(data);
             setProducts(data.payload.docs);
             setLoader(false);
         } catch (error) {

@@ -1,6 +1,6 @@
 import { AccountCircle, Edit } from '@mui/icons-material'
 import { Box, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 
 const UserProfile = () => {
@@ -8,35 +8,32 @@ const UserProfile = () => {
   const [userData, setUserData] = useState({});
   const [loader, setLoader] = useState(true);
 
-  useEffect(() => {
+  const token = localStorage.getItem('token');
 
-    const token = localStorage.getItem('token');
+  const getData = useCallback(async () => {
+    try {
+      const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/users/profile', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
-    const getData = async () => {
-      try {
-        const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/users/profile', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        });
+      if (!response.ok) return toast.error('Error al obtener perfil del usuario :/');
 
-        if (!response.ok) return toast.error('Error al obtener perfil del usuario :/');
-
-        const dataRes = await response.json();
-
-        setUserData(dataRes.user);
-        setLoader(false);
-      } catch (error) {
-        console.error('Error en la solicitud', error.message);
-      }
-    };
-
-    return () => {
-      getData()
+      const dataRes = await response.json();
+      setUserData(dataRes.user);
+      setLoader(false);
+    } catch (error) {
+      console.error('Error en la solicitud', error.message);
+      throw new Error('Error consultando perfil del usuario');
     }
-  }, []);
+  }, [token]);
+
+  useEffect(() => {
+    getData()
+  }, [getData]);
 
   if (loader) {
     return <Typography> Cargando... </Typography>
