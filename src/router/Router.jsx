@@ -7,6 +7,7 @@ import LogInUser from '../components/user/LogInUser'
 import ProtectedRoutes from './ProtectedRoutes'
 import { useSelector } from 'react-redux'
 import { Box, Container, Grid } from '@mui/material'
+import ItemDetail from '../components/products/ItemDetail'
 
 const Router = () => {
 
@@ -20,6 +21,7 @@ const Router = () => {
                         <Route path='/' element={<Home />} />;
                         <Route path='/createacount' element={<CreateAccount />} />
                         <Route path='/login' element={<LogInUser />} />
+                        <Route path='/product-detail/:id' element={<ItemDetail />} />
                         <Route element={<ProtectedRoutes user={user} />}>
                             <Route path='/user' element={<UserProfile />} />;
                         </Route>
