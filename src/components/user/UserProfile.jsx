@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 const UserProfile = () => {
 
   const [userData, setUserData] = useState({});
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
 
@@ -20,12 +21,13 @@ const UserProfile = () => {
             'Authorization': `Bearer ${token}`
           }
         });
-  
+
         if (!response.ok) return toast.error('Error al obtener perfil del usuario :/');
-  
+
         const dataRes = await response.json();
-  
+
         setUserData(dataRes.user);
+        setLoader(false);
       } catch (error) {
         console.error('Error en la solicitud', error.message);
       }
@@ -35,6 +37,10 @@ const UserProfile = () => {
       getData()
     }
   }, []);
+
+  if (loader) {
+    return <Typography> Cargando... </Typography>
+  }
 
   return (
     <Box sx={{
