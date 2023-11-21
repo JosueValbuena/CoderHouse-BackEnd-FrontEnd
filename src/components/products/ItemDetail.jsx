@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom'
 
 const ItemDetail = () => {
@@ -8,7 +9,7 @@ const ItemDetail = () => {
     const [loader, setLoader] = useState(true);
     const productParams = useParams();
 
-    const getData = async () => {
+    const getData = useCallback(async () => {
         const id = productParams.id;
         try {
             const response = await fetch(`https://coderhouse-backend-w8sd.onrender.com/api/products/${id}`, {
@@ -18,7 +19,10 @@ const ItemDetail = () => {
                 },
             });
 
-            if (!response.ok) throw new Error('Error al consultar producto');
+            if (!response.ok) {
+                toast.error('En estos momentos tenemos problemas para consultar este producto :(')
+                throw new Error('Error al consultar producto');
+            }
 
             const data = await response.json();
             setProduct(data.result);
@@ -26,11 +30,11 @@ const ItemDetail = () => {
         } catch (error) {
             throw new Error('Error al consultar productos: ' + error)
         }
-    };
+    }, [productParams.id]);
 
     useEffect(() => {
         getData()
-    }, []);
+    }, [getData]);
 
     if (loader) {
         return <Typography>Cargando...</Typography>

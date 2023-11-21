@@ -2,15 +2,15 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { Google } from '@mui/icons-material'
 import { Box, Button, Divider, Grid, Paper, TextField, Typography } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 const LogInUser = () => {
 
     const navigate = useNavigate();
-    const user = useSelector((state) => state.user.user)
+    /* const user = useSelector((state) => state.user.user) */
     const dispatch = useDispatch();
 
     const { register, handleSubmit, /* formState: { errors } */ } = useForm();
@@ -36,7 +36,7 @@ const LogInUser = () => {
             const dataRes = await response.json();
             dispatch(setUser(dataRes.name));
             localStorage.setItem('token', dataRes.token);
-            toast.success(`Bienvenido ${user}`)
+            toast.success(`Bienvenido ${dataRes.name}`);
             navigate('/');
         } catch (error) {
             console.error('Error al realizar la solicitud', error);
@@ -49,7 +49,6 @@ const LogInUser = () => {
                 minHeight: 'calc(100vh - 5.5rem)',
                 backgroundColor: '#eee'
             }}>
-                <Toaster />
                 <Paper sx={{ height: '25rem', marginTop: '1rem' }} elevation={3}>
                     <Box sx={{
                         display: 'flex',
