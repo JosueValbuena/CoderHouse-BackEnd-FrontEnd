@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <NavBar />
       <Toaster />
-      <Container>
+      <Container sx={{ backgroundColor: '#eee' }}>
         <Grid container >
           <SideBar />
           <Router />

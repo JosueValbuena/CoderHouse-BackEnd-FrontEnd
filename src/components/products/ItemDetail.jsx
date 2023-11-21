@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material';
+import { Add, Remove } from '@mui/icons-material';
+import { Box, Button, Grid, Paper, Rating, Typography } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
 const ItemDetail = () => {
 
@@ -41,20 +42,44 @@ const ItemDetail = () => {
     }
 
     return (
-        <Box>
-            <Box>
-                <Typography>Marca</Typography>
-                <Typography>{product.title}</Typography>
-            </Box>
+        <Paper>
+            <Grid container p={2}>
+                <Grid>
+                    <Box>
+                        <Typography variant='body2'>Marca</Typography>
+                        <Typography variant='h5'>{product.title}</Typography>
+                        <Box display='flex' alignItems='center'>
+                            <Rating name="read-only" value={0} readOnly />
+                            <Typography variant='body2' px={2}> (0 reseñas) </Typography>
+                        </Box>
+                        <Typography variant='body2'>Vendido por: VENDEDOR</Typography>
+                    </Box>
+                </Grid>
 
-            <Box>
-                {/* <img src="https://images.unsplash.com/photo-1515974256630-babc85765b1d?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /> */}
-            </Box>
+                <Grid>
+                    <Box py={2}>
+                        <img style={{ width: '100%' }} src="https://images.unsplash.com/photo-1515974256630-babc85765b1d?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                    </Box>
+                </Grid>
 
-            <Box>
-                <Typography>{product.price}</Typography>
-            </Box>
-        </Box>
+                <Grid width='100%'>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Typography>CLP: {product.price}</Typography>
+
+                        <Box display='flex' alignItems='center'>
+                            <Remove />
+                            <Typography>1</Typography>
+                            <Add />
+                        </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }} pt={2}>
+                        <Button variant="contained" size="medium">
+                            Agregar al carro
+                        </Button>
+                    </Box>
+                </Grid>
+            </Grid>
+        </Paper>
     )
 }
 
