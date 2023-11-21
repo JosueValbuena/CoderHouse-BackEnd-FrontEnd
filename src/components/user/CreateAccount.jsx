@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Google } from '@mui/icons-material';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const CreateAccount = () => {
 
@@ -28,10 +29,13 @@ const CreateAccount = () => {
         body: JSON.stringify(registerData)
       });
 
-      if (!response.ok) return console.log('error al registrar usuario')
+      if (!response.ok) {
+        toast.error('error al registrar usuario')
+        throw new Error('error al registrar usuario')
+      }
 
       await response.json();
-      console.log('Usuario registrado con exito')
+      toast.success('Usuario registrado con exito')
       navigate('/login');
     } catch (error) {
       throw new Error('Error al registrar usuario');
