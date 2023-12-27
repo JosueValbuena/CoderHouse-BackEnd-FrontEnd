@@ -4,7 +4,7 @@ import { Google } from '@mui/icons-material'
 import { Box, Button, Divider, Grid, Paper, TextField, Typography } from '@mui/material'
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 const LogInUser = () => {
@@ -13,7 +13,9 @@ const LogInUser = () => {
     /* const user = useSelector((state) => state.user.user) */
     const dispatch = useDispatch();
 
-    const { register, handleSubmit, /* formState: { errors } */ } = useForm();
+    const { register, handleSubmit, /* formState: { errors } */ watch } = useForm();
+
+    const { user, password } = watch();
 
     const onSubmit = async (data) => {
 
@@ -34,7 +36,8 @@ const LogInUser = () => {
             if (!response.ok) return toast.error("Usuario o contrasenha invalida :/")
 
             const dataRes = await response.json();
-            dispatch(setUser(dataRes.name));
+            console.log(dataRes)
+            dispatch(setUser(dataRes));
             localStorage.setItem('token', dataRes.token);
             toast.success(`Bienvenido ${dataRes.name}`);
             navigate('/');
@@ -74,15 +77,17 @@ const LogInUser = () => {
                                 <TextField type="password" placeholder="Contrasenha" {...register("password", { required: true })} />
 
                                 <Box pt={2}>
-                                    <Button variant="contained" type='submit'>Iniciar Session</Button>
+                                    <Button
+                                        variant="contained"
+                                        type='submit'
+                                        disabled={!user || !password}>Iniciar Session</Button>
                                 </Box>
                             </Box>
 
                         </form>
 
-                        <Typography>
-                            ¿Olvidaste tu contraseña?
-                        </Typography>
+                        <Button variant="text" component={Link} to='/password-forgot'>¿Olvidaste tu contraseña?</Button>
+                        
                         <Divider />
                         <Typography>
                             O inicia sesion con:
