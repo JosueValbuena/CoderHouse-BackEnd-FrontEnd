@@ -56,7 +56,8 @@ const SideBar = () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [isOpenSideBar, handleSidebar]);
-
+    console.log(user)
+    if (user) console.log(user.role)
     return (
         <SideBar ref={ref}>
             <Typography>
@@ -105,6 +106,32 @@ const SideBar = () => {
                 <Button variant="text" onClick={handleSidebar}>Categoria 3</Button>
                 <Button variant="text" onClick={handleSidebar}>Categoria 4</Button>
             </Box>
+
+            {user &&
+                <>
+                    <Typography>
+                        Tipo de usuario
+                    </Typography>
+
+                    <Box sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        backgroundColor: '#fafafa',
+                        borderRadius: '10px'
+                    }}
+                        py={2}
+                        my={1}>
+                        <Link to="/user-role">
+                            <Button variant="text" onClick={handleSidebar}>
+                                {user.role === 'premium' || user.role === 'admin'
+                                    ? 'Usuario Premium'
+                                    : 'Cambia a Premium'}
+                            </Button>
+                        </Link>
+                    </Box>
+                </>
+            }
         </SideBar>
     )
 }

@@ -10,6 +10,7 @@ import { Box, Container, Grid } from '@mui/material'
 import ItemDetail from '../components/products/ItemDetail'
 import PasswordForgot from '../components/user/PasswordForgot'
 import PasswordRecovery from '../components/user/PasswordRecovery'
+import UserRole from '../components/user/UserRole'
 
 const Router = () => {
 
@@ -25,6 +26,7 @@ const Router = () => {
                         <Route path='/login' element={<LogInUser />} />
                         <Route path='/product-detail/:id' element={<ItemDetail />} />
                         <Route path='/password-forgot' element={<PasswordForgot />} />
+                        <Route path='/user-role' element={<UserRole />} />
                         <Route path='/password-recovery/:codeRecovery' element={<PasswordRecovery />} />
                         <Route element={<ProtectedRoutes user={user} />}>
                             <Route path='/user' element={<UserProfile />} />;

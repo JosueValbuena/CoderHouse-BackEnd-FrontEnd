@@ -36,7 +36,8 @@ const LogInUser = () => {
             if (!response.ok) return toast.error("Usuario o contrasenha invalida :/")
 
             const dataRes = await response.json();
-            dispatch(setUser(dataRes.name));
+            console.log(dataRes)
+            dispatch(setUser(dataRes));
             localStorage.setItem('token', dataRes.token);
             toast.success(`Bienvenido ${dataRes.name}`);
             navigate('/');

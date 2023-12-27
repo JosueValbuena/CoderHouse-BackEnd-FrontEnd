@@ -103,7 +103,7 @@ export default function NavBar() {
                         component={Link}
                         to='user'
                         xs={{ display: 'block' }}>
-                        <MenuItem onClick={handleMenuClose}>Hola {user}</MenuItem>
+                        <MenuItem onClick={handleMenuClose}>Hola {user.name}</MenuItem>
                     </Button>
 
                     <Button
