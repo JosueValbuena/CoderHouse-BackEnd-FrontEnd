@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Home from '../views/Home'
 import UserProfile from '../components/user/UserProfile'
 import CreateAccount from '../components/user/CreateAccount'
@@ -11,6 +11,7 @@ import ItemDetail from '../components/products/ItemDetail'
 import PasswordForgot from '../components/user/PasswordForgot'
 import PasswordRecovery from '../components/user/PasswordRecovery'
 import UserRole from '../components/user/UserRole'
+import UsersManager from '../components/user/UsersManager'
 
 const Router = () => {
 
@@ -29,7 +30,8 @@ const Router = () => {
                         <Route path='/user-role' element={<UserRole />} />
                         <Route path='/password-recovery/:codeRecovery' element={<PasswordRecovery />} />
                         <Route element={<ProtectedRoutes user={user} />}>
-                            <Route path='/user' element={<UserProfile />} />;
+                            <Route path='/user' element={user ? <UserProfile /> : <Navigate to='/' />} />;
+                            <Route path='/usersmanager' element={user && user.role && user.role === 'admin' ? <UsersManager /> : <Navigate to='/' />} />;
                         </Route>
                     </Routes>
                 </Grid>
