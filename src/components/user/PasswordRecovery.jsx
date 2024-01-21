@@ -23,7 +23,7 @@ const PasswordRecovery = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:3001/api/users/password-recovery', {
+            const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/users/password-recovery', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

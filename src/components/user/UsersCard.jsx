@@ -1,8 +1,13 @@
 import { Avatar, Box, Button, Grid, Paper, Typography } from '@mui/material'
 import React from 'react'
 
-const UsersCard = ({ data }) => {
+const UsersCard = ({ data, setUserData, handleOpen }) => {
     console.log(data)
+    const handleClick = () => {
+        handleOpen();
+        setUserData(data)
+    };
+
     return (
         <Grid item xs={12} sm={6} md={4}>
             <Paper elevation={3} sx={{ padding: '0.5rem 1rem', margin: '1rem 0rem' }}>
@@ -16,7 +21,7 @@ const UsersCard = ({ data }) => {
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Button variant="text" color='secondary'>Editar</Button>
-                    <Button variant="text" color='error'>Eliminar</Button>
+                    <Button variant="text" color='error' onClick={handleClick}>Eliminar</Button>
                 </Box>
             </Paper>
         </Grid>
