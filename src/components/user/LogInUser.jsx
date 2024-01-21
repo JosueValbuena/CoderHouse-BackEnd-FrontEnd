@@ -37,9 +37,9 @@ const LogInUser = () => {
 
             const dataRes = await response.json();
             console.log(dataRes)
-            dispatch(setUser(dataRes));
+            dispatch(setUser(dataRes.payload));
             localStorage.setItem('token', dataRes.token);
-            toast.success(`Bienvenido ${dataRes.name}`);
+            toast.success(`Bienvenido ${dataRes.payload.name}`);
             navigate('/');
         } catch (error) {
             console.error('Error al realizar la solicitud', error);

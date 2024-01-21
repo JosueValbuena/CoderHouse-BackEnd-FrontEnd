@@ -107,7 +107,7 @@ const SideBar = () => {
                 <Button variant="text" onClick={handleSidebar}>Categoria 4</Button>
             </Box>
 
-            {user &&
+            {user && user.role && user.role !== 'admin' &&
                 <>
                     <Typography>
                         Tipo de usuario
@@ -124,7 +124,7 @@ const SideBar = () => {
                         my={1}>
                         <Link to="/user-role">
                             <Button variant="text" onClick={handleSidebar}>
-                                {user.role === 'premium' || user.role === 'admin'
+                                {user.role === 'premium'
                                     ? 'Usuario Premium'
                                     : 'Cambia a Premium'}
                             </Button>
@@ -132,6 +132,34 @@ const SideBar = () => {
                     </Box>
                 </>
             }
+
+            {user && user.role && user.role === 'admin' &&
+                <>
+                    <Typography>
+                        Panel administrativo
+                    </Typography>
+
+                    <Box sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        backgroundColor: '#fafafa',
+                        borderRadius: '10px',
+                    }}
+                        py={2}
+                        my={1}>
+                        <Button variant="text" component={Link} to='/usersmanager' onClick={handleSidebar}>
+                            Usuarios
+                        </Button>
+
+                        <Button variant="text" component={Link} to='/productsmanager' onClick={handleSidebar}>
+                            Publicaciones
+                        </Button>
+
+                    </Box>
+                </>
+            }
+
         </SideBar>
     )
 }

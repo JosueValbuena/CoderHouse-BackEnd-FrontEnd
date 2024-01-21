@@ -1,11 +1,13 @@
 import { Box, Button, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux'
 
 const UserRole = () => {
 
     const user = useSelector((state) => state.user.user);
+
+    const [file, setFile] = useState(null);
 
     const handleClick = async () => {
         const role = user.role === 'premium' ? 'user' : 'premium';
@@ -31,7 +33,36 @@ const UserRole = () => {
             toast.error('Error al cambiar el rol del usuario');
             console.error('Error al cambiar el rol del usuario ' + error.message);
         }
-    }
+    };
+
+    const handleFile = (e) => {
+        setFile(e.target.files[0]);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const uid = user.id;
+        const type = 'documentation';
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch(`http://localhost:3001/api/users/user/${uid}/documents/${type}`, {
+                    method: 'POST',
+                    
+                    body: formData
+                });
+
+                console.log(response);
+            } catch (error) {
+                console.error('Error al enviar formulario: ' + error);
+            };
+        } else {
+            console.warn('Seleccione un archivo antes de enviar el formulario');
+        };
+    };
 
     return (
         <Box>
@@ -44,6 +75,11 @@ const UserRole = () => {
                 }}>
                     <Typography>¿Deseas Cambiarte a Premium?</Typography>
                     <Button variant='contained'>Cambiar mi Rol</Button>
+
+                    <form onSubmit={handleSubmit} encType='multipart/form-data'>
+                        <input type="file" name='file' onChange={handleFile} />
+                        <input type="submit" value='upload file' />
+                    </form>
                 </Box>
             }
 

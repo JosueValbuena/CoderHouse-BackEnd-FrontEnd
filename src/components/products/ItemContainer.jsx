@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import ItemCard from './ItemCard';
+import { PacmanLoader } from 'react-spinners';
 
 const ItemContainer = () => {
 
@@ -32,7 +33,7 @@ const ItemContainer = () => {
     }, []);
 
     if (loader) {
-        return <Typography> Cargando... </Typography>
+        return <PacmanLoader color='#2196f3' />
     }
 
     return (
