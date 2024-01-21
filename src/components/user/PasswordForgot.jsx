@@ -12,7 +12,7 @@ const PasswordForgot = () => {
   const onSubmit = async (data) => {
     const email = data.user;
     try {
-      const response = await fetch('http://localhost:3001/api/users/password-forgot', {
+      const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/users/password-forgot', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

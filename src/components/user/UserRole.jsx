@@ -14,7 +14,7 @@ const UserRole = () => {
         const uid = user.id;
         console.log({ role, uid })
         try {
-            const response = await fetch(`http://localhost:3001/api/users/user-role/premium/${uid}`, {
+            const response = await fetch(`https://coderhouse-backend-w8sd.onrender.com/api/users/user-role/premium/${uid}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ const UserRole = () => {
             formData.append('file', file);
 
             try {
-                const response = await fetch(`http://localhost:3001/api/users/user/${uid}/documents/${type}`, {
+                const response = await fetch(`https://coderhouse-backend-w8sd.onrender.com/api/users/user/${uid}/documents/${type}`, {
                     method: 'POST',
                     
                     body: formData
