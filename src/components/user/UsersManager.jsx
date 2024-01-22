@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import UsersCard from './UsersCard';
 import { PacmanLoader } from 'react-spinners';
+import { useNavigate } from 'react-router-dom';
 
 const UsersManager = () => {
 
@@ -10,13 +11,19 @@ const UsersManager = () => {
     const [loader, setLoader] = useState(true);
     const [openModal, setOpenModal] = useState(false);
     const [userData, setUserData] = useState({});
+    const navegate = useNavigate();
+
     const handleOpen = () => setOpenModal(true);
     const handleClose = () => setOpenModal(false);
+
+    const handleEditUser = (uid) => {
+        navegate(`/admin/edituser/${uid}`)
+    };
 
     const getUsers = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/users/allusers', {
+            const response = await fetch('http://localhost:3001/api/users/allusers', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +47,7 @@ const UsersManager = () => {
     const deleteUser = async () => {
         const uid = userData.id;
         try {
-            const response = await fetch(`https://coderhouse-backend-w8sd.onrender.com/api/users/userDelete/${uid}`, {
+            const response = await fetch(`http://localhost:3001/api/users/userDelete/${uid}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -81,7 +88,9 @@ const UsersManager = () => {
 
     return (
         <Grid>
-            <Typography>Administrador de usuarios</Typography>
+            <Box sx={{ textAlign: 'center' }}>
+                <Typography>Administrador de usuarios</Typography>
+            </Box>
 
             <Grid container spacing={2}>
                 {users.map(user => {
@@ -89,7 +98,9 @@ const UsersManager = () => {
                         key={user.id}
                         data={user}
                         setUserData={setUserData}
-                        handleOpen={handleOpen} />
+                        handleOpen={handleOpen}
+                        handleEditUser={handleEditUser}
+                    />
                 })}
             </Grid>
 
