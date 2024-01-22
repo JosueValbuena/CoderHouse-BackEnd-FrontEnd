@@ -208,8 +208,6 @@ export default function NavBar() {
 
                             </Box>
                         </Grid>
-
-
                     </Grid>
                 </Toolbar>
             </AppBar>

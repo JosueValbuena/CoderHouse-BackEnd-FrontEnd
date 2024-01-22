@@ -12,6 +12,7 @@ import PasswordForgot from '../components/user/PasswordForgot'
 import PasswordRecovery from '../components/user/PasswordRecovery'
 import UserRole from '../components/user/UserRole'
 import UsersManager from '../components/user/UsersManager'
+import UserInfoEditByAdmin from '../components/user/UserInfoEditByAdmin'
 
 const Router = () => {
 
@@ -32,6 +33,7 @@ const Router = () => {
                         <Route element={<ProtectedRoutes user={user} />}>
                             <Route path='/user' element={user ? <UserProfile /> : <Navigate to='/' />} />;
                             <Route path='/usersmanager' element={user && user.role && user.role === 'admin' ? <UsersManager /> : <Navigate to='/' />} />;
+                            <Route path='/admin/edituser/:uid' element={user && user.role && user.role === 'admin' ? <UserInfoEditByAdmin /> : <Navigate to='/' />} />
                         </Route>
                     </Routes>
                 </Grid>
