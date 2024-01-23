@@ -11,7 +11,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Close, ShoppingCart } from '@mui/icons-material';
+import { Close, NoteAdd, ShoppingCart } from '@mui/icons-material';
 import { Button, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { openSideBar } from '../redux/utilsSlice';
@@ -59,24 +59,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function NavBar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    /* const [openSideBarIcon, setOpenSidebarIcon] = React.useState(false); */
+    const [anchorElProduct, setAnchorElProduct] = React.useState(null);
     const isOpenSideBar = useSelector((state) => state.sidebar.open);
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
 
     const isMenuOpen = Boolean(anchorEl);
+    const isMenuOpenProduct = Boolean(anchorElProduct)
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
+    const handleProductsOptions = (event) => {
+        setAnchorElProduct(event.currentTarget);
+    };
+
     const handleSidebarOpen = () => {
-        /* setOpenSidebarIcon(!openSideBarIcon); */
         dispatch(openSideBar(!isOpenSideBar));
     }
 
     const handleMenuClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleMenuCloseProduct = () => {
+        setAnchorElProduct(null);
     };
 
     const menuId = 'primary-search-account-menu';
@@ -97,11 +105,11 @@ export default function NavBar() {
             onClose={handleMenuClose}
         >
             {user ?
-                <Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Button
                         color='inherit'
                         component={Link}
-                        to='user'
+                        to='/userprofile'
                         xs={{ display: 'block' }}>
                         <MenuItem onClick={handleMenuClose}>Hola {user.name}</MenuItem>
                     </Button>
@@ -115,11 +123,11 @@ export default function NavBar() {
                     </Button>
                 </Box>
                 :
-                <Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Button
                         color='inherit'
                         component={Link}
-                        to='login'
+                        to='/login'
                         xs={{ display: 'block' }}>
                         <MenuItem onClick={handleMenuClose}>Inicia Sesion</MenuItem>
                     </Button>
@@ -127,12 +135,49 @@ export default function NavBar() {
                     <Button
                         color='inherit'
                         component={Link}
-                        to='createacount'
+                        to='/createacount'
                         xs={{ display: 'block' }}>
                         <MenuItem onClick={handleMenuClose}>Crea Una Cuenta</MenuItem>
                     </Button>
                 </Box>
             }
+        </Menu>
+    );
+
+    const menuIdProducts = 'primary-search-products-menu';
+    const renderMenuProducts = (
+        <Menu
+            anchorEl={anchorElProduct}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={menuIdProducts}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpenProduct}
+            onClose={handleMenuCloseProduct}
+        >
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Button
+                    color='inherit'
+                    component={Link}
+                    to='user/itemcreate'
+                    xs={{ display: 'block' }}>
+                    <MenuItem onClick={handleMenuCloseProduct}>Publicar producto</MenuItem>
+                </Button>
+
+                <Button
+                    color='inherit'
+                    component={Link}
+                    to='/user/allproducts'
+                    xs={{ display: 'block' }}>
+                    <MenuItem onClick={handleMenuCloseProduct}>Ver mis productos</MenuItem>
+                </Button>
+            </Box>
         </Menu>
     );
 
@@ -185,6 +230,18 @@ export default function NavBar() {
                                     {isOpenSideBar ? <Close /> : <MenuIcon />}
                                 </IconButton>
 
+                                {user && <IconButton
+                                    size="large"
+                                    edge="end"
+                                    aria-label="account of current user"
+                                    aria-controls={menuIdProducts}
+                                    aria-haspopup="true"
+                                    onClick={handleProductsOptions}
+                                    color="inherit"
+                                >
+                                    <NoteAdd />
+                                </IconButton>}
+
                                 <IconButton
                                     size="large"
                                     edge="end"
@@ -211,6 +268,7 @@ export default function NavBar() {
                     </Grid>
                 </Toolbar>
             </AppBar>
+            {renderMenuProducts}
             {renderMenu}
         </Box >
     );

@@ -2,7 +2,7 @@ import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { /* Navigate ,*/ useNavigate, useParams } from 'react-router-dom'
 import { PacmanLoader } from 'react-spinners';
 
 const UserInfoEditByAdmin = () => {
