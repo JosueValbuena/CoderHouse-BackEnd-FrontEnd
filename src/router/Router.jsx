@@ -14,6 +14,7 @@ import UserRole from '../components/user/UserRole'
 import UsersManager from '../components/user/UsersManager'
 import UserInfoEditByAdmin from '../components/user/UserInfoEditByAdmin'
 import ItemCreate from '../components/products/ItemCreate'
+import UserAllItems from '../components/user/UserAllItems'
 
 const Router = () => {
 
@@ -36,6 +37,7 @@ const Router = () => {
                             <Route path='/usersmanager' element={user && user.role && user.role === 'admin' ? <UsersManager /> : <Navigate to='/' />} />;
                             <Route path='/admin/edituser/:uid' element={user && user.role && user.role === 'admin' ? <UserInfoEditByAdmin /> : <Navigate to='/' />} />
                             <Route path='/user/itemcreate' element={user ? <ItemCreate /> : <Navigate to='/' />} />
+                            <Route path='/user/allproducts' element={user ? <UserAllItems user={user} /> : <Navigate to='/' />} />
                         </Route>
                     </Routes>
                 </Grid>

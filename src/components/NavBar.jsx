@@ -173,7 +173,7 @@ export default function NavBar() {
                 <Button
                     color='inherit'
                     component={Link}
-                    to='createacount'
+                    to='/user/allproducts'
                     xs={{ display: 'block' }}>
                     <MenuItem onClick={handleMenuCloseProduct}>Ver mis productos</MenuItem>
                 </Button>
