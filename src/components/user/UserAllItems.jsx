@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { PacmanLoader } from 'react-spinners';
@@ -9,8 +9,7 @@ const UserAllItems = ({ user }) => {
     const [loader, setLoader] = useState(true);
     const [dataProducts, setDataProducts] = useState([]);
 
-    const getUserItems = async () => {
-        const uid = user.id;
+    const getUserItems = async (uid) => {
         try {
             const response = await fetch(`http://localhost:3001/api/products/allproductsuser/${uid}`, {
                 method: 'GET',
@@ -29,9 +28,34 @@ const UserAllItems = ({ user }) => {
         };
     };
 
+    const handleDeleteProduct = async (pid) => {
+        const uid = user.id;
+        try {
+            const response = await fetch(`http://localhost:3001/api/products/delete/${pid}/user/${uid}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                toast.error('No se pudo eliminar el producto');
+                console.error('No se pudo eliminar el producto');
+                return
+            };
+            setLoader(true);
+            toast.success('Producto eliminado correctamente');
+            const newDataProducts = dataProducts.filter(ele => ele._id !== pid);
+            setDataProducts(newDataProducts);
+            setLoader(false);
+        } catch (error) {
+            throw new Error('Error en consulta eliminar producto')
+        };
+    };
+
     useEffect(() => {
-        getUserItems()
-    }, []);
+        getUserItems(user.id)
+    }, [user.id]);
 
     if (loader) return <PacmanLoader color='#2196f3' />
 
@@ -45,6 +69,7 @@ const UserAllItems = ({ user }) => {
                     return <ItemUserDetail
                         key={ele._id}
                         product={ele}
+                        handleDeleteProduct={handleDeleteProduct}
                     />
                 })}
             </Grid>
