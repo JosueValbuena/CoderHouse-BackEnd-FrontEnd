@@ -1,7 +1,7 @@
 import { Paper, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { PacmanLoader } from 'react-spinners';
 import ItemEditForm from '../common/ItemEditForm';
 
@@ -11,6 +11,8 @@ const ItemUserEdit = ({ user }) => {
 
     const [product, setProduct] = useState({});
     const [loader, setLoader] = useState(true);
+
+    const navegate = useNavigate();
 
     const getProduct = async (pid) => {
         try {
@@ -29,9 +31,27 @@ const ItemUserEdit = ({ user }) => {
         };
     };
 
-    const handleEditProduct = async (newData) => {
+    const handleEditProduct = async (newProduct) => {
+
+        const uid = user.id
+
         try {
-            
+            const response = await fetch(`http://localhost:3001/api/products/product/${pid}/user/${uid}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newProduct)
+            });
+
+            if (!response.ok) return toast.error('No se ha podido modificar el producto');
+
+            const data = await response.json();
+
+            if (data.payload.modifiedCount === 1) {
+                navegate('/user/allproducts');
+                toast.success('Producto modificado exitosamente');
+            }
         } catch (error) {
             throw new Error('Error en consulta editar producto');
         };
@@ -39,7 +59,7 @@ const ItemUserEdit = ({ user }) => {
 
     useEffect(() => {
         getProduct(pid)
-    }, []);
+    }, [pid]);
 
 
     if (loader) return <PacmanLoader color='#2196f3' />
@@ -47,7 +67,10 @@ const ItemUserEdit = ({ user }) => {
     return (
         <Paper>
             <Typography>Editar Producto</Typography>
-            <ItemEditForm data={product} />
+            <ItemEditForm
+                product={product}
+                handleEditProduct={handleEditProduct}
+            />
         </Paper>
     )
 }
