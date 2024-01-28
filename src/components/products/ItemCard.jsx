@@ -1,24 +1,51 @@
 import { Favorite, ShoppingCart } from '@mui/icons-material'
 import { Button, CardActions, CardContent, CardMedia, Grid, Paper, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const ItemCard = ({ product }) => {
 
-    const navigate = useNavigate();
+    const user = useSelector(state => state.user.user);
     const [favorite, setFavorite] = useState(false);
+    const navigate = useNavigate();
 
     const handleClickProductDetail = (id) => {
         navigate(`product-detail/${id}`)
     }
 
-    useEffect(() => {
-        /* first */
+    //llamadas API
+    const addToCart = async () => {
+        const uid = user.id;
+        const pid = product._id;
+        try {
+            const response = await fetch(`http://localhost:3001/api/carts/addtocart/user/${uid}/product/${pid}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log(response)
+            if (response.ok) {
+                return console.log({ response });
+            };
 
-        return () => {
-            setFavorite(false)
-        }
-    }, [])
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            throw new Error('Error en consulta agregar producto al carrito', error);
+        };
+    };
+
+    const handleAddToCart = (e) => {
+        e.stopPropagation();
+        addToCart();
+    };
+
+    const handleFavorite = (e) => {
+        e.stopPropagation();
+        setFavorite(!favorite)
+    };
 
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -43,8 +70,8 @@ const ItemCard = ({ product }) => {
                     </Typography>
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'space-around' }}>
-                    <Button variant='outlined' size="small" startIcon={<ShoppingCart />}>Agregar</Button>
-                    <Button variant='outlined' size="small" sx={{ color: favorite ? 'red' : 'gray' }}><Favorite /></Button>
+                    <Button variant='outlined' size="small" startIcon={<ShoppingCart />} onClick={(e) => handleAddToCart(e)}>Agregar</Button>
+                    <Button variant='outlined' size="small" sx={{ color: favorite ? 'red' : 'gray' }} onClick={(e) => handleFavorite(e)}><Favorite /></Button>
                 </CardActions>
             </Paper>
         </Grid>
