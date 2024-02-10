@@ -7,7 +7,6 @@ const initialState = {
 export const utilsSlice = createSlice({
     name: 'sidebar',
     initialState,
-    //actions
     reducers: {
         openSideBar: (state, action) => {
             const open = action.payload;

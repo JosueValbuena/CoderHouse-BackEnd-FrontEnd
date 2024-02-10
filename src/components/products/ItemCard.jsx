@@ -1,14 +1,16 @@
 import { Favorite, ShoppingCart } from '@mui/icons-material'
 import { Button, CardActions, CardContent, CardMedia, Grid, Paper, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { /* useDispatch, */ useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { getCart } from '../../views/Home'
 
 const ItemCard = ({ product }) => {
 
     const user = useSelector(state => state.user.user);
     const [favorite, setFavorite] = useState(false);
     const navigate = useNavigate();
+    //const dispatch = useDispatch();
 
     const handleClickProductDetail = (id) => {
         navigate(`product-detail/${id}`)
@@ -26,11 +28,12 @@ const ItemCard = ({ product }) => {
                 }
             });
             console.log(response)
-            if (response.ok) {
-                return console.log({ response });
+            if (!response.ok) {
+                return console.error({ response });
             };
 
             const data = await response.json();
+            await getCart();
             console.log(data);
         } catch (error) {
             throw new Error('Error en consulta agregar producto al carrito', error);

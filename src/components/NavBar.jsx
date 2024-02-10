@@ -62,11 +62,8 @@ export default function NavBar() {
     const [anchorElProduct, setAnchorElProduct] = React.useState(null);
     const isOpenSideBar = useSelector((state) => state.sidebar.open);
     const user = useSelector((state) => state.user.user);
-    const cart = useSelector(state => state.cart.cart);
+    const totalItems = useSelector(state => state.totalItemCart.totalItems)
     const dispatch = useDispatch();
-
-    const cartItems = cart[0].products.map(ele => ele.qty).reduce((a, b) => a + b, 0);
-
     const isMenuOpen = Boolean(anchorEl);
     const isMenuOpenProduct = Boolean(anchorElProduct)
 
@@ -265,7 +262,7 @@ export default function NavBar() {
                                     component={Link}
                                     to='/user/cart'
                                 >
-                                    <Badge badgeContent={cartItems} color="error">
+                                    <Badge badgeContent={totalItems} color="error">
                                         <ShoppingCart />
                                     </Badge>
                                 </IconButton>
