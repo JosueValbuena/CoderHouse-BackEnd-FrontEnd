@@ -20,11 +20,10 @@ const UserProfile = () => {
           'Authorization': `Bearer ${token}`
         }
       });
-
       if (!response.ok) return toast.error('Error al obtener perfil del usuario :/');
 
       const dataRes = await response.json();
-      setUserData(dataRes.user);
+      setUserData(dataRes.payload);
       setLoader(false);
     } catch (error) {
       console.error('Error en la solicitud', error.message);
