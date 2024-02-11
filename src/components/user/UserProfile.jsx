@@ -2,6 +2,7 @@ import { AccountCircle, Edit } from '@mui/icons-material'
 import { Box, Typography } from '@mui/material'
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
+import { backendURL } from '../API/main';
 
 const UserProfile = () => {
 
@@ -12,7 +13,7 @@ const UserProfile = () => {
 
   const getData = useCallback(async () => {
     try {
-      const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/users/profile', {
+      const response = await fetch(`${backendURL}/api/users/profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

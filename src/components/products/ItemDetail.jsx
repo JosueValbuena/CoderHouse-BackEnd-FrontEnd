@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { PacmanLoader } from 'react-spinners';
+import { backendURL } from '../API/main';
 
 const ItemDetail = () => {
 
@@ -14,7 +15,7 @@ const ItemDetail = () => {
     const getData = useCallback(async () => {
         const id = productParams.id;
         try {
-            const response = await fetch(`https://coderhouse-backend-w8sd.onrender.com/api/products/product/${id}`, {
+            const response = await fetch(`${backendURL}/api/products/product/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

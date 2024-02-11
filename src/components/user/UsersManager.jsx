@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import UsersCard from './UsersCard';
 import { PacmanLoader } from 'react-spinners';
 import { useNavigate } from 'react-router-dom';
+import { backendURL } from '../API/main';
 
 const UsersManager = () => {
 
@@ -23,7 +24,7 @@ const UsersManager = () => {
     const getUsers = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch('http://localhost:3001/api/users/allusers', {
+            const response = await fetch(`${backendURL}/api/users/allusers`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -47,7 +48,7 @@ const UsersManager = () => {
     const deleteUser = async () => {
         const uid = userData.id;
         try {
-            const response = await fetch(`http://localhost:3001/api/users/userDelete/${uid}`, {
+            const response = await fetch(`${backendURL}/api/users/userDelete/${uid}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { /* useDispatch, */ useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getCart } from '../../views/Home'
+import { backendURL } from '../API/main'
 
 const ItemCard = ({ product }) => {
 
@@ -21,7 +22,7 @@ const ItemCard = ({ product }) => {
         const uid = user.id;
         const pid = product._id;
         try {
-            const response = await fetch(`http://localhost:3001/api/carts/addtocart/user/${uid}/product/${pid}`, {
+            const response = await fetch(`${backendURL}/api/carts/addtocart/user/${uid}/product/${pid}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

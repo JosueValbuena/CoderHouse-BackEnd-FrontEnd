@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { Grid } from "@mui/material";
 import ItemCard from './ItemCard';
 import { PacmanLoader } from 'react-spinners';
+import { backendURL } from '../API/main';
 
 const ItemContainer = () => {
 
     const [products, setProducts] = useState([]);
     const [loader, setLoader] = useState(true);
 
+    console.log({ process: process.env, url: process.env.REACT_APP_API })
+
     const getData = async () => {
         try {
-            const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/products/all', {
+            const response = await fetch(`${backendURL}/api/products/all`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

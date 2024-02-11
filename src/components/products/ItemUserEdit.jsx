@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom'
 import { PacmanLoader } from 'react-spinners';
 import ItemEditForm from '../common/ItemEditForm';
+import { backendURL } from '../API/main';
 
 const ItemUserEdit = ({ user }) => {
     const { pid } = useParams();
@@ -16,7 +17,7 @@ const ItemUserEdit = ({ user }) => {
 
     const getProduct = async (pid) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/products/product/${pid}`, {
+            const response = await fetch(`${backendURL}/api/products/product/${pid}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -37,8 +38,8 @@ const ItemUserEdit = ({ user }) => {
         const uid = user.id
         const isAdmin = user.role === 'admin' ? true : false;
         const URL = isAdmin
-            ? `http://localhost:3001/api/products/product/${pid}/useradmin`
-            : `http://localhost:3001/api/products/product/${pid}/user/${uid}`;
+            ? `${backendURL}/api/products/product/${pid}/useradmin`
+            : `${backendURL}/api/products/product/${pid}/user/${uid}`;
 
         try {
             const response = await fetch(URL, {

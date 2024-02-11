@@ -2,6 +2,7 @@ import { Box, Button, Paper, Typography } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { backendURL } from '../../API/main';
 
 const CartResume = ({ totalPayment }) => {
 
@@ -15,7 +16,7 @@ const CartResume = ({ totalPayment }) => {
         console.log({ uid });
 
         try {
-            const response = await fetch(`http://localhost:3001/api/purchases/createpurchase/cart/${cid}/user/${uid}`, {
+            const response = await fetch(`${backendURL}/api/purchases/createpurchase/cart/${cid}/user/${uid}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
