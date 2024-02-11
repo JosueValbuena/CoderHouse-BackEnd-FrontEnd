@@ -22,6 +22,7 @@ const ItemUserEdit = ({ user }) => {
                     'Content-Type': 'application/json'
                 }
             });
+            console.log({ response })
             if (!response.ok) return toast.error('Error consultando datos del producto');
             const data = await response.json();
             setProduct(data.payload);
@@ -34,9 +35,13 @@ const ItemUserEdit = ({ user }) => {
     const handleEditProduct = async (newProduct) => {
 
         const uid = user.id
+        const isAdmin = user.role === 'admin' ? true : false;
+        const URL = isAdmin
+            ? `http://localhost:3001/api/products/product/${pid}/useradmin`
+            : `http://localhost:3001/api/products/product/${pid}/user/${uid}`;
 
         try {
-            const response = await fetch(`http://localhost:3001/api/products/product/${pid}/user/${uid}`, {
+            const response = await fetch(URL, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -49,7 +54,7 @@ const ItemUserEdit = ({ user }) => {
             const data = await response.json();
 
             if (data.payload.modifiedCount === 1) {
-                navegate('/user/allproducts');
+                isAdmin ? navegate('/admin/productsmanager') : navegate('/user/allproducts');
                 toast.success('Producto modificado exitosamente');
             }
         } catch (error) {

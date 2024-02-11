@@ -3,6 +3,7 @@ import { Box, Button, Grid, Paper, Rating, Typography } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
+import { PacmanLoader } from 'react-spinners';
 
 const ItemDetail = () => {
 
@@ -13,12 +14,14 @@ const ItemDetail = () => {
     const getData = useCallback(async () => {
         const id = productParams.id;
         try {
-            const response = await fetch(`https://coderhouse-backend-w8sd.onrender.com/api/products/${id}`, {
+            const response = await fetch(`https://coderhouse-backend-w8sd.onrender.com/api/products/product/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },
             });
+
+            console.log(response)
 
             if (!response.ok) {
                 toast.error('En estos momentos tenemos problemas para consultar este producto :(')
@@ -26,19 +29,24 @@ const ItemDetail = () => {
             }
 
             const data = await response.json();
-            setProduct(data.result);
+            console.log(data)
+            setProduct(data.payload);
             setLoader(false)
         } catch (error) {
             throw new Error('Error al consultar productos: ' + error)
         }
     }, [productParams.id]);
 
+    const handleAddToCart = () => {
+        console.log(product)
+    };
+
     useEffect(() => {
         getData()
     }, [getData]);
 
     if (loader) {
-        return <Typography>Cargando...</Typography>
+        return <PacmanLoader color='#2196f3' />
     }
 
     return (
@@ -73,7 +81,7 @@ const ItemDetail = () => {
                         </Box>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }} pt={2}>
-                        <Button variant="contained" size="medium">
+                        <Button variant="contained" size="medium" onClick={handleAddToCart}>
                             Agregar al carro
                         </Button>
                     </Box>

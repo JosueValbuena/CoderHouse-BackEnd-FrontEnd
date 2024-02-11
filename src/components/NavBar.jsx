@@ -12,7 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Close, NoteAdd, ShoppingCart } from '@mui/icons-material';
-import { Button, Grid } from '@mui/material';
+import { Badge, Button, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { openSideBar } from '../redux/utilsSlice';
 import { Link } from 'react-router-dom';
@@ -62,8 +62,8 @@ export default function NavBar() {
     const [anchorElProduct, setAnchorElProduct] = React.useState(null);
     const isOpenSideBar = useSelector((state) => state.sidebar.open);
     const user = useSelector((state) => state.user.user);
+    const totalItems = useSelector(state => state.totalItemCart.totalItems)
     const dispatch = useDispatch();
-
     const isMenuOpen = Boolean(anchorEl);
     const isMenuOpenProduct = Boolean(anchorElProduct)
 
@@ -259,8 +259,12 @@ export default function NavBar() {
                                     edge="end"
                                     color="inherit"
                                     aria-label="open drawer"
+                                    component={Link}
+                                    to='/user/cart'
                                 >
-                                    <ShoppingCart />
+                                    <Badge badgeContent={totalItems} color="error">
+                                        <ShoppingCart />
+                                    </Badge>
                                 </IconButton>
 
                             </Box>

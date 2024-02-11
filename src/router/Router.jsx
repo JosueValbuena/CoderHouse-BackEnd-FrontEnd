@@ -16,6 +16,9 @@ import UserInfoEditByAdmin from '../components/user/UserInfoEditByAdmin'
 import ItemCreate from '../components/products/ItemCreate'
 import UserAllItems from '../components/user/UserAllItems'
 import ItemUserEdit from '../components/products/ItemUserEdit'
+import ItemEditByAdmin from '../components/products/ItemEditByAdmin'
+import CartContainer from '../components/cart/CartContainer'
+import PurchaseResume from '../components/purchaseResume/PurchaseResume'
 
 const Router = () => {
 
@@ -33,13 +36,16 @@ const Router = () => {
                         <Route path='/password-forgot' element={<PasswordForgot />} />
                         <Route path='/user-role' element={<UserRole />} />
                         <Route path='/password-recovery/:codeRecovery' element={<PasswordRecovery />} />
+                        <Route path='/user/cart' element={<CartContainer />} />
                         <Route element={<ProtectedRoutes user={user} />}>
                             <Route path='/userprofile' element={user ? <UserProfile /> : <Navigate to='/' />} />;
-                            <Route path='/usersmanager' element={user && user.role && user.role === 'admin' ? <UsersManager /> : <Navigate to='/' />} />;
+                            <Route path='/admin/usersmanager' element={user && user.role && user.role === 'admin' ? <UsersManager /> : <Navigate to='/' />} />;
                             <Route path='/admin/edituser/:uid' element={user && user.role && user.role === 'admin' ? <UserInfoEditByAdmin /> : <Navigate to='/' />} />
+                            <Route path='/admin/productsmanager' element={user && user.role && user.role === 'admin' ? <ItemEditByAdmin /> : <Navigate to='/' />} />
                             <Route path='/user/itemcreate' element={user ? <ItemCreate /> : <Navigate to='/' />} />
                             <Route path='/user/allproducts' element={user ? <UserAllItems user={user} /> : <Navigate to='/' />} />
                             <Route path='/user/product/:pid' element={user ? <ItemUserEdit user={user} /> : <Navigate to='/' />} />
+                            <Route path='/user/purchased/:phid' element={user ? <PurchaseResume /> : <Navigate to='/' />} />
                         </Route>
                     </Routes>
                 </Grid>

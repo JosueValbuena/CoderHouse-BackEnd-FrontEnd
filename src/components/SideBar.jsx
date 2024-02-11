@@ -148,11 +148,11 @@ const SideBar = () => {
                     }}
                         py={2}
                         my={1}>
-                        <Button variant="text" component={Link} to='/usersmanager' onClick={handleSidebar}>
+                        <Button variant="text" component={Link} to='/admin/usersmanager' onClick={handleSidebar}>
                             Usuarios
                         </Button>
 
-                        <Button variant="text" component={Link} to='/productsmanager' onClick={handleSidebar}>
+                        <Button variant="text" component={Link} to='/admin/productsmanager' onClick={handleSidebar}>
                             Publicaciones
                         </Button>
 
