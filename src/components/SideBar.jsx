@@ -74,7 +74,7 @@ const SideBar = () => {
                 my={1} >
                 {user ?
                     <Box>
-                        <Link to='/user'>
+                        <Link to='/userprofile'>
                             <Button variant="outlined" startIcon={<Person />}>
                                 Perfil
                             </Button>
