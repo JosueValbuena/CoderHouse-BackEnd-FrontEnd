@@ -3,6 +3,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useParams, useNavigate } from 'react-router-dom';
+import { backendURL } from '../API/main';
 
 const PasswordRecovery = () => {
 
@@ -23,7 +24,7 @@ const PasswordRecovery = () => {
         }
 
         try {
-            const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/users/password-recovery', {
+            const response = await fetch(`${backendURL}/api/users/password-recovery`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

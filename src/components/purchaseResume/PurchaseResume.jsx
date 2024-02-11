@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { PacmanLoader } from 'react-spinners';
 import { Home } from '@mui/icons-material';
+import { backendURL } from '../API/main';
 
 const PurchaseResume = () => {
 
@@ -17,7 +18,7 @@ const PurchaseResume = () => {
         try {
             const uid = user.id;
             const phid = params.phid
-            const response = await fetch(`http://localhost:3001/api/purchases/getticket/${phid}/user/${uid}`, {
+            const response = await fetch(`${backendURL}/api/purchases/getticket/${phid}/user/${uid}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

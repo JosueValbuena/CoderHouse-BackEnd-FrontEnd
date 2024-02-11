@@ -4,6 +4,7 @@ import { Google } from '@mui/icons-material';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { backendURL } from '../API/main';
 
 const CreateAccount = () => {
 
@@ -21,7 +22,7 @@ const CreateAccount = () => {
     };
 
     try {
-      const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/users/register', {
+      const response = await fetch(`${backendURL}/api/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

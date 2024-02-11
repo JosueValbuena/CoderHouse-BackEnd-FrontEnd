@@ -2,6 +2,7 @@ import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { backendURL } from '../API/main';
 
 const PasswordForgot = () => {
 
@@ -12,7 +13,7 @@ const PasswordForgot = () => {
   const onSubmit = async (data) => {
     const email = data.user;
     try {
-      const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/users/password-forgot', {
+      const response = await fetch(`${backendURL}/api/users/password-forgot`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

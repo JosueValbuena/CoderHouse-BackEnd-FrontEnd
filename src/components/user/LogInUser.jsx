@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { backendURL } from '../API/main';
 
 const LogInUser = () => {
 
@@ -25,7 +26,7 @@ const LogInUser = () => {
         };
 
         try {
-            const response = await fetch('https://coderhouse-backend-w8sd.onrender.com/api/users/login', {
+            const response = await fetch(`${backendURL}/api/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

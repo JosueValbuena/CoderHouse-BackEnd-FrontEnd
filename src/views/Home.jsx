@@ -4,6 +4,7 @@ import ItemContainer from '../components/products/ItemContainer'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCart, setCartID } from '../redux/cartSlice'
 import { setTotalItems } from '../redux/totalItemCart'
+import { backendURL } from '../components/API/main'
 
 export const getCart = async (dispatch, user) => {
 
@@ -13,7 +14,7 @@ export const getCart = async (dispatch, user) => {
     try {
         const uid = user.id;
 
-        const response = await fetch(`http://localhost:3001/api/carts/usercart/${uid}`, {
+        const response = await fetch(`${backendURL}/api/carts/usercart/${uid}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

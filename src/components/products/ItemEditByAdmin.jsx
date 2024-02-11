@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { PacmanLoader } from 'react-spinners';
 import ItemUserDetail from './ItemUserDetail';
+import { backendURL } from '../API/main';
 
 const ItemEditByAdmin = () => {
 
@@ -11,10 +12,9 @@ const ItemEditByAdmin = () => {
     const [pagination, setPagination] = useState({});
     const [currentPage, setCurretPage] = useState(1);
 
-    const baselink = 'http://localhost:3001/api/products/all';
-
     const getData = async (newlink) => {
 
+        const baselink = `${backendURL}/api/products/all`;
         const linkToFetch = newlink || baselink;
 
         try {
@@ -56,8 +56,8 @@ const ItemEditByAdmin = () => {
     }
 
     useEffect(() => {
-        getData(baselink);
-    }, [baselink]);
+        getData();
+    }, []);
 
     if (loader) return <PacmanLoader color='#2196f3' />
 

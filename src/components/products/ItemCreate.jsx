@@ -3,6 +3,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
+import { backendURL } from '../API/main';
 
 const ItemCreate = () => {
 
@@ -24,7 +25,7 @@ const ItemCreate = () => {
             user: uid
         };
         try {
-            const response = await fetch('http://localhost:3001/api/products/create', {
+            const response = await fetch(`${backendURL}/api/products/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

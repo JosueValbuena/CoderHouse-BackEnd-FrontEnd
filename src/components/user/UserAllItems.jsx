@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { PacmanLoader } from 'react-spinners';
 import ItemUserDetail from '../products/ItemUserDetail';
+import { backendURL } from '../API/main';
 
 const UserAllItems = ({ user }) => {
 
@@ -11,7 +12,7 @@ const UserAllItems = ({ user }) => {
 
     const getUserItems = async (uid) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/products/allproductsuser/${uid}`, {
+            const response = await fetch(`${backendURL}/api/products/allproductsuser/${uid}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -31,7 +32,7 @@ const UserAllItems = ({ user }) => {
     const handleDeleteProduct = async (pid) => {
         const uid = user.id;
         try {
-            const response = await fetch(`http://localhost:3001/api/products/delete/${pid}/user/${uid}`, {
+            const response = await fetch(`${backendURL}/api/products/delete/${pid}/user/${uid}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

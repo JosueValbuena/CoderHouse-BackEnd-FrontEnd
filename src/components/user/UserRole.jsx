@@ -2,6 +2,7 @@ import { Box, Button, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux'
+import { backendURL } from '../API/main';
 
 const UserRole = () => {
 
@@ -14,7 +15,7 @@ const UserRole = () => {
         const uid = user.id;
         console.log({ role, uid })
         try {
-            const response = await fetch(`https://coderhouse-backend-w8sd.onrender.com/api/users/user-role/premium/${uid}`, {
+            const response = await fetch(`${backendURL}/api/users/user-role/premium/${uid}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -49,9 +50,9 @@ const UserRole = () => {
             formData.append('file', file);
 
             try {
-                const response = await fetch(`https://coderhouse-backend-w8sd.onrender.com/api/users/user/${uid}/documents/${type}`, {
+                const response = await fetch(`${backendURL}/api/users/user/${uid}/documents/${type}`, {
                     method: 'POST',
-                    
+
                     body: formData
                 });
 

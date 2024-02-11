@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { /* Navigate ,*/ useNavigate, useParams } from 'react-router-dom'
 import { PacmanLoader } from 'react-spinners';
+import { backendURL } from '../API/main';
 
 const UserInfoEditByAdmin = () => {
 
@@ -19,7 +20,7 @@ const UserInfoEditByAdmin = () => {
 
     const getUserInfo = async (uid) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/users/user/${uid}`, {
+            const response = await fetch(`${backendURL}/api/users/user/${uid}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -48,7 +49,7 @@ const UserInfoEditByAdmin = () => {
         };
 
         try {
-            const response = await fetch(`http://localhost:3001/api/users/useredit/${uid}`, {
+            const response = await fetch(`${backendURL}/api/users/useredit/${uid}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
