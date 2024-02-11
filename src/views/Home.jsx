@@ -2,7 +2,7 @@ import { Box } from '@mui/material'
 import React, { useEffect } from 'react'
 import ItemContainer from '../components/products/ItemContainer'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCart } from '../redux/cartSlice'
+import { setCart, setCartID } from '../redux/cartSlice'
 import { setTotalItems } from '../redux/totalItemCart'
 
 export const getCart = async (dispatch, user) => {
@@ -22,15 +22,25 @@ export const getCart = async (dispatch, user) => {
 
         if (!response.ok) {
             console.error('Error consultando informacion de carrito de usuario');
+            console.error({ response })
+            return
         };
 
         const data = await response.json();
-        const totalItemsInCart = data.payload.length !== 0
-            ? data.payload[0].products.map(item => item.qty).reduce((acc, sum) => acc + sum, 0)
-            : 0;
-        console.log({ totalItemsInCart });
-        dispatch(setTotalItems(totalItemsInCart));
-        dispatch(setCart(data.payload));
+        console.log({ data })
+
+        if (data.payload && data.payload[0] && data.payload.length !== 0) {
+            const totalItemsInCart = data.payload[0].products.map(item => item.qty).reduce((acc, sum) => acc + sum, 0)
+            const cardID = data.payload[0]._id;
+
+            dispatch(setTotalItems(totalItemsInCart));
+            dispatch(setCart(data.payload));
+            dispatch(setCartID(cardID));
+        } else {
+            dispatch(setTotalItems(0));
+            dispatch(setCart([]));
+            dispatch(setCartID(0));
+        }
     } catch (error) {
         throw new Error('Error en consulta de carrito de usuario', error);
     };
@@ -46,7 +56,6 @@ const Home = () => {
     useEffect(() => {
         getCart(dispatch, user);
     }, [dispatch, user])
-
 
     return (
         <Box>

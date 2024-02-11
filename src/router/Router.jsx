@@ -18,6 +18,7 @@ import UserAllItems from '../components/user/UserAllItems'
 import ItemUserEdit from '../components/products/ItemUserEdit'
 import ItemEditByAdmin from '../components/products/ItemEditByAdmin'
 import CartContainer from '../components/cart/CartContainer'
+import PurchaseResume from '../components/purchaseResume/PurchaseResume'
 
 const Router = () => {
 
@@ -44,6 +45,7 @@ const Router = () => {
                             <Route path='/user/itemcreate' element={user ? <ItemCreate /> : <Navigate to='/' />} />
                             <Route path='/user/allproducts' element={user ? <UserAllItems user={user} /> : <Navigate to='/' />} />
                             <Route path='/user/product/:pid' element={user ? <ItemUserEdit user={user} /> : <Navigate to='/' />} />
+                            <Route path='/user/purchased/:phid' element={user ? <PurchaseResume /> : <Navigate to='/' />} />
                         </Route>
                     </Routes>
                 </Grid>

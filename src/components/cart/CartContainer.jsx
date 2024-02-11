@@ -38,7 +38,7 @@ const CartContainer = () => {
             justifyContent: 'space-around',
             flexDirection: { xs: 'column', lg: 'row' }
         }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} order={{ xs: 2, md: 1 }}>
                 {cartItems.length > 0
                     ? cartItems.map(ele => {
                         return <CartItem key={ele._id} product={ele} />
@@ -46,7 +46,7 @@ const CartContainer = () => {
                     : <Typography>¡Explora y suma productos a tu carrito de compras!</Typography>}
             </Grid>
 
-            <Grid>
+            <Grid order={{ xs: 1, md: 2 }}>
                 <CartResume totalPayment={getCartTotalPayment} />
             </Grid>
         </Grid>
